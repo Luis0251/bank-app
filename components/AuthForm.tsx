@@ -21,6 +21,8 @@ import { AuthFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { Sign } from "crypto";
 import { useRouter } from "next/navigation";
+import SingIn from "@/app/(auth)/sign-in/page";
+import SignUp from "@/app/(auth)/sign-up/page";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -40,15 +42,15 @@ const AuthForm = ({ type }: { type: string }) => {
     setLoading(true);
     try {
       if (type === "sign-up") {
-        // const newUser = await signUp(data);
-        // setUser(newUser);
+        const newUser = await SignUp(data);
+        setUser(newUser);
       }
       if (type === "sign-in") {
-        // const response = await singIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
-        // if (response) router.push("/");
+        const response = await SingIn({
+          email: data.email,
+          password: data.password,
+        });
+        if (response) router.push("/");
       }
     } catch (error) {
       console.log(error);
